@@ -27,17 +27,21 @@ def translate_text(text):
     try:
         response = client.chat.completions.create(
             model="gpt-4o",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "你是一個只負責翻譯的工具。"
-                               "請將輸入的文字翻譯成印尼文（如果是中文），"
-                               "或翻譯成中文（如果是印尼文）。"
-                               "不要回應問題、不要回答、不要多講，只輸出翻譯後的文字。"
-                               "中文請回繁體中文。"
-                },
-                {"role": "user", "content": text}
-            ]
+           messages=[
+            {
+                 "role": "system",
+                 "content": "你是一個只會翻譯語言的工具，請依照下列規則翻譯：\n"
+                            "- 如果輸入是中文，請翻譯成印尼文。\n"
+                            "- 如果輸入是印尼文，請翻譯成繁體中文。\n"
+                            "- 不要加任何說明、解釋、問候語。\n"
+                            "- 只輸出翻譯結果。\n"
+                            "- 所有中文回覆都必須使用繁體中文，禁止使用簡體字。"           
+            },
+            {
+                "role": "user",
+                "content": text
+            }
+        ]
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
