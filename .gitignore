@@ -1,0 +1,7 @@
+# Python Cache
+__pycache__/
+*.pyc
+
+# 環境變數
+.env
+run.env
