@@ -27,8 +27,8 @@ def translate_text(text):
     try:
         response = client.chat.completions.create(
             model="gpt-4o",
-           messages=[
-            {
+            messages=[
+              {
                  "role": "system",
                  "content": "你是一個只會翻譯語言的工具，請依照下列規則翻譯：\n"
                             "- 如果輸入是中文，請翻譯成印尼文。\n"
@@ -36,11 +36,11 @@ def translate_text(text):
                             "- 不要加任何說明、解釋、問候語。\n"
                             "- 只輸出翻譯結果。\n"
                             "- 所有中文回覆都必須使用繁體中文，禁止使用簡體字。"           
-            },
-            {
+              },
+              {
                 "role": "user",
                 "content": text
-            }
+              }
         ]
         )
         return response.choices[0].message.content.strip()
