@@ -6,6 +6,7 @@ import openai
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
+app = Flask(__name__)
 # 讀取 run.env 中的環境變數
 load_dotenv(dotenv_path='run.env')
 
