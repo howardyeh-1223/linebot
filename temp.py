@@ -86,7 +86,7 @@ def translate_text(user_id: str, text: str) -> str:
         context_text = "目前沒有上下文。"
 
     try:
-        response = client.chat.completions.create(
+       response = client.chat.completions.create(
             model=OPENAI_MODEL,
             temperature=0,
             messages=[
@@ -108,16 +108,31 @@ def translate_text(user_id: str, text: str) -> str:
                         "10. 如果內容太短，例如「好」、「嗯」、「可以」、「iya」、「ok」，請翻成自然對應語氣，不要過度延伸。\n"
                         "\n"
                         "關於 kakak / kak 的特殊規則：\n"
-                        "11. 使用者的家庭情境中，kakak / kak 預設翻成「哥哥」。\n"
+                        "11. 在本使用者家庭情境中，kakak / kak 預設代表「哥哥」。\n"
                         "12. 若印尼文中的 kakak / kak 是外看對使用者的稱呼，也請優先翻成「哥哥」，不要翻成姐姐。\n"
                         "13. 只有在上下文明確表示 kakak / kak 是女性、姐姐、姊姊、女性年長手足時，才翻成「姐姐」。\n"
                         "14. 如果上下文不明確，不要猜成姐姐，請一律翻成「哥哥」。\n"
                         "15. 若中文輸入是「哥哥」，請翻成 kakak 或 kakak laki-laki；日常對話可優先用 kakak。\n"
                         "16. 若中文輸入是「姐姐」，請翻成 kakak perempuan。\n"
+                        "17. 若句子是「Ada kakak ...」，通常翻成「哥哥在……」、「有哥哥在……」或「因為哥哥在……」，不要翻成生硬的「有哥哥……」。\n"
+                        "\n"
+                        "印尼文生活口語判斷規則：\n"
+                        "18. 外看傳來的印尼文常常是生活口語，可能省略「因為、所以、已經、還沒、正在、請問」等連接詞或語氣詞。翻譯時不要逐字硬翻，要依生活情境翻成自然繁體中文。\n"
+                        "19. 若句子出現「Ada + 人物 + tidak/belum + 動作」，通常不要翻成「有沒有……？」；請優先理解為「有某人在，所以沒有／還沒做某事」。\n"
+                        "20. 例如：Ada kakak tidak bikin video makan siang → 有哥哥在，所以沒有拍午餐影片。\n"
+                        "21. 若句子中沒有問號、沒有明顯疑問詞，例如 apa、apakah、kenapa、kapan、di mana、dimana、siapa、berapa，且語氣不像問句，不要自行翻成問句。\n"
+                        "22. 「tidak」通常翻成「沒有／不會／不是」。若接在生活動作前，例如 tidak makan、tidak tidur、tidak bikin、tidak pergi，請依上下文翻成「沒有吃、沒有睡、沒有做、沒有去」。\n"
+                        "23. 「belum」通常翻成「還沒」。例如：Belum makan → 還沒吃。\n"
+                        "24. 「sudah」通常翻成「已經」。例如：Sudah makan → 已經吃了。\n"
+                        "25. 若印尼文句子像是在回報照顧狀況，請翻成中文的回報語氣，不要翻成質問語氣。\n"
+                        "26. 例如：Mama sudah makan → 媽媽已經吃了。不要翻成「媽媽吃了嗎？」。\n"
+                        "27. 若印尼文句子語序不完整，請依照台灣中文習慣補出合理連接詞，例如「因為、所以、現在、剛剛、等一下」，但不要過度腦補不存在的內容。\n"
+                        "28. 若出現 bikin video、bikin vidio、buat video、buat vidio，請優先翻成「拍影片」或「錄影片」，不要翻成「做影片」，除非上下文明確是在剪輯影片。\n"
+                        "29. 若句子是照顧媽媽、吃飯、洗澡、睡覺、吃藥、拍影片、出門、回家等家庭照護情境，請優先用自然口語中文翻譯。\n"
                         "\n"
                         "上下文使用規則：\n"
-                        "17. 請參考最近對話上下文判斷人物、稱呼與語氣。\n"
-                        "18. 但最終只能輸出最新這一句的翻譯結果，不要翻譯整段上下文。"
+                        "30. 請參考最近對話上下文判斷人物、稱呼與語氣。\n"
+                        "31. 但最終只能輸出最新這一句的翻譯結果，不要翻譯整段上下文。\n"
                     )
                 },
                 {
