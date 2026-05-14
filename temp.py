@@ -86,7 +86,7 @@ def translate_text(user_id: str, text: str) -> str:
         context_text = "目前沒有上下文。"
 
     try:
-       response = client.chat.completions.create(
+        response = client.chat.completions.create(
             model=OPENAI_MODEL,
             temperature=0,
             messages=[
